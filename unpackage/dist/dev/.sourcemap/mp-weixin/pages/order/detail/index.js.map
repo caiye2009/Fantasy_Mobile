@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sources":["../../../OneDrive/Desktop/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXMvb3JkZXIvZGV0YWlsL2luZGV4LnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'C:/Users/caiye/Documents/HBuilderProjects/Fantasy_Mobile/pages/order/detail/index.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;AACA,GAAG,WAAW,eAAe;"}
