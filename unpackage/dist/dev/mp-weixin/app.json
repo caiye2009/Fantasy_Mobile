@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/order/index/index",
     "pages/order/list/index",
-    "pages/order/detail/index"
+    "pages/order/detail/index",
+    "pages/material/list/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

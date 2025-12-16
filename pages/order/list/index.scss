@@ -38,7 +38,7 @@
     padding: 30rpx 0;
     color: #999;
     font-size: 24rpx;
-  }
+  } 
   
   .scan-button-container {
     position: fixed;
@@ -47,7 +47,7 @@
     right: 0;
     padding: 20rpx 30rpx 40rpx;
     background-color: #ffffff;
-    box-shadow: 0 -2rpx 20rpx rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2rpx 20rpx rgba(0, 0, 0, 0.1);   
     
     ::v-deep .u-button {
       box-shadow: 0 4rpx 12rpx rgba(41, 121, 255, 0.3);

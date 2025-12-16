@@ -2,10 +2,10 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
-			<text class="title">{{title}}</text>
-			<u-button type="info" @click="uni.navigateTo({
+			<!-- <text class="title">{{title}}</text> -->
+			<u-button type="primary" @click="uni.navigateTo({
   url: '/pages/order/index/index'
-})">12312</u-button>
+})">登陆授权</u-button>
 		</view>
 	</view>
 </template>

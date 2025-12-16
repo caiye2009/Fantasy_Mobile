@@ -1,4 +1,7 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "u-icon": "../u-icon/u-icon",
+    "u-text": "../u-text/u-text"
+  }
 }

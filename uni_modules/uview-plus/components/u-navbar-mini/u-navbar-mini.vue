@@ -18,11 +18,11 @@
 					@tap="leftClick"
 				>
 					<slot name="left">
-						<up-icon
+						<u-icon
 							:name="leftIcon"
 							:size="iconSize"
 							:color="iconColor"
-						></up-icon>
+						></u-icon>
 					</slot>
 				</view>
 				<view style="padding: 10px 10px;">
@@ -31,7 +31,7 @@
                 <view
 					class="u-navbar-mini__content__center" @tap="homeClick">
                     <slot name="center">
-                        <up-icon name="home" :size="iconSize" :color="iconColor"></up-icon>
+                        <u-icon name="home" :size="iconSize" :color="iconColor"></u-icon>
                     </slot>
                 </view>
 			</view>

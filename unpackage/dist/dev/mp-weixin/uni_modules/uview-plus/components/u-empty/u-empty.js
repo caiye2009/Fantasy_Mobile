@@ -53,8 +53,12 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _component_up_icon = common_vendor.resolveComponent("up-icon");
-  _component_up_icon();
+  const _easycom_u_icon2 = common_vendor.resolveComponent("u-icon");
+  _easycom_u_icon2();
+}
+const _easycom_u_icon = () => "../u-icon/u-icon.js";
+if (!Math) {
+  _easycom_u_icon();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({

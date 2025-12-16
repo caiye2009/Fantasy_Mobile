@@ -1,10 +1,10 @@
 declare module 'vue' {
   export interface GlobalComponents {
     // 基础组件
-    ['up-icon']: typeof import('./comps/icon')['Icon']
+    ['u-icon']: typeof import('./comps/icon')['Icon']
     ['up-image']: typeof import('./comps/image')['Image']
     ['up-button']: typeof import('./comps/button')['Button']
-    ['up-text']: typeof import('./comps/text')['Text']
+    ['u-text']: typeof import('./comps/text')['Text']
     ['up-row']: typeof import('./comps/row')['Row']
     ['up-col']: typeof import('./comps/col')['Col']
     ['up-cell']: typeof import('./comps/cell')['Cell']

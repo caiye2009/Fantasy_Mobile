@@ -182,13 +182,14 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _component_up_icon = common_vendor.resolveComponent("up-icon");
+  const _easycom_u_icon2 = common_vendor.resolveComponent("u-icon");
   const _easycom_u_badge2 = common_vendor.resolveComponent("u-badge");
-  (_component_up_icon + _easycom_u_badge2)();
+  (_easycom_u_icon2 + _easycom_u_badge2)();
 }
+const _easycom_u_icon = () => "../u-icon/u-icon.js";
 const _easycom_u_badge = () => "../u-badge/u-badge.js";
 if (!Math) {
-  _easycom_u_badge();
+  (_easycom_u_icon + _easycom_u_badge)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {

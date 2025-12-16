@@ -11,12 +11,12 @@
 		>
 			<view class="u-tabbar-item--mid-button-cover" v-if="isMidButton">
 			</view>
-			<up-icon
+			<u-icon
 			    v-if="icon"
 			    :name="icon"
 			    :color="isActive? parentData.activeColor : parentData.inactiveColor"
 			    :size="isMidButton ? 26 : 20"
-			></up-icon>
+			></u-icon>
 			<template v-else>
 				<slot
 				    v-if="isActive"

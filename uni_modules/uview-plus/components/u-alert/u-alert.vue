@@ -14,11 +14,11 @@
 			    class="u-alert__icon"
 			    v-if="showIcon"
 			>
-				<up-icon
+				<u-icon
 				    :name="iconName"
 				    size="18"
 				    :color="iconColor"
-				></up-icon>
+				></u-icon>
 			</view>
 			<!-- 内容区域 -->
 			<view
@@ -55,11 +55,11 @@
 			    @tap.stop="closeHandler"
 			>
 				<slot name="close">
-					<up-icon
+					<u-icon
 					    name="close"
 					    :color="iconColor"
 					    size="15"
-					></up-icon>
+					></u-icon>
 				</slot>
 			</view>
 		</view>

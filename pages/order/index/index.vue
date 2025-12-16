@@ -165,7 +165,7 @@ const gridList = ref([
     iconBg: 'rgba(103, 194, 58, 0.1)',
     bgColor: '#FFFFFF',
     shadowColor: 'rgba(103, 194, 58, 0.2)',
-    path: '/pages/goods/index'
+    path: '/pages/material/list/index'
   },
   { 
     id: 3, 
@@ -194,7 +194,7 @@ const gridList = ref([
     id: 5, 
     title: '会员中心', 
     desc: '尊享权益', 
-    icon: 'vip', 
+    icon: 'level', 
     iconColor: '#909399',
     iconBg: 'rgba(144, 147, 153, 0.1)',
     bgColor: '#FFFFFF',
@@ -255,8 +255,8 @@ const handleGridClick = (item) => {
       icon: 'success',
       duration: 1500
     })
-    
-    // 实际项目中跳转到对应页面
+    console.log(item.path) 
+    // 跳转到对应页面
     uni.navigateTo({ url: item.path })
   }, 500)
 }

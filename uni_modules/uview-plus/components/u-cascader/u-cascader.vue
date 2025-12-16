@@ -27,8 +27,8 @@
 										:index="index" :key="index"
 										@click="levelChange(levelIndex, index)">
 										<template v-slot:right-icon>
-											<up-icon v-if="selectedValueIndexs[levelIndex] === index"
-												size="17" name="checkbox-mark"></up-icon>
+											<u-icon v-if="selectedValueIndexs[levelIndex] === index"
+												size="17" name="checkbox-mark"></u-icon>
 										</template>
 									</up-cell>
 								</up-cell-group>

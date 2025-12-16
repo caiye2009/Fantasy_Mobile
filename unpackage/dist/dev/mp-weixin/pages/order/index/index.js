@@ -41,7 +41,7 @@ const _sfc_main = {
         iconBg: "rgba(103, 194, 58, 0.1)",
         bgColor: "#FFFFFF",
         shadowColor: "rgba(103, 194, 58, 0.2)",
-        path: "/pages/goods/index"
+        path: "/pages/material/list/index"
       },
       {
         id: 3,
@@ -59,7 +59,7 @@ const _sfc_main = {
         id: 4,
         title: "我的收藏",
         desc: "收藏夹",
-        icon: "star",
+        icon: "flask",
         iconColor: "#F56C6C",
         iconBg: "rgba(245, 108, 108, 0.1)",
         bgColor: "#FFFFFF",
@@ -117,6 +117,7 @@ const _sfc_main = {
           icon: "success",
           duration: 1500
         });
+        common_vendor.index.__f__("log", "at pages/order/index/index.vue:258", item.path);
         common_vendor.index.navigateTo({ url: item.path });
       }, 500);
     };

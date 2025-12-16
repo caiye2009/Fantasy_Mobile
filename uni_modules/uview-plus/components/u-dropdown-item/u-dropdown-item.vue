@@ -10,7 +10,7 @@
 						 :key="index" :title-style="{
 							color: modelValue == item.value ? activeColor : inactiveColor
 						}">
-							<up-icon v-if="modelValue == item.value" name="checkbox-mark" :color="activeColor" size="32"></up-icon>
+							<u-icon v-if="modelValue == item.value" name="checkbox-mark" :color="activeColor" size="32"></u-icon>
 						</up-cell>
 					</up-cell-group>
 				</view>

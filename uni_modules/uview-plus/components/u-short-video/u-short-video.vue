@@ -4,7 +4,7 @@
 		<view class="u-short-video__header">
 			<slot name="menu">
 				<view class="u-short-video__header__menu">
-					<up-icon name="grid" size="24"></up-icon>
+					<u-icon name="grid" size="24"></u-icon>
 				</view>
 			</slot>
 			
@@ -27,7 +27,7 @@
 			
 			<slot name="search">
 				<view class="u-short-video__header__search">
-					<up-icon name="search" size="24"></up-icon>
+					<u-icon name="search" size="24"></u-icon>
 				</view>
 			</slot>
 		</view>
@@ -66,7 +66,7 @@
 						<!-- 倍速设置按钮 -->
 						<!-- <view class="u-short-video__content__video__speed" @click="showSpeedOptions(index)">
 							<text class="speed-text">{{ item.playbackRate || 1.0 }}x</text>
-							<up-icon name="arrow-down" size="12" color="#fff"></up-icon>
+							<u-icon name="arrow-down" size="12" color="#fff"></u-icon>
 						</view> -->
 					</view>
 					
@@ -88,19 +88,19 @@
 					<view class="u-short-video__content__actions">
 						<slot name="actions" :item="item" :index="index">
 							<view class="u-short-video__content__actions__item" @click="handleLike(item, index)">
-								<up-icon color="#eee" :name="item.isLiked ? 'thumb-up-fill' : 'thumb-up'" size="32px"></up-icon>
+								<u-icon color="#eee" :name="item.isLiked ? 'thumb-up-fill' : 'thumb-up'" size="32px"></u-icon>
 								<text class="u-short-video__content__actions__text">{{ item.likeCount }}</text>
 							</view>
 							<view class="u-short-video__content__actions__item" @click="handleComment(item, index)">
-								<up-icon color="#eee" name="chat" size="32px"></up-icon>
+								<u-icon color="#eee" name="chat" size="32px"></u-icon>
 								<text class="u-short-video__content__actions__text">{{ item.commentCount }}</text>
 							</view>
 							<view class="u-short-video__content__actions__item" @click="handleShare(item, index)">
-								<up-icon color="#eee" name="share" size="32px"></up-icon>
+								<u-icon color="#eee" name="share" size="32px"></u-icon>
 								<text class="u-short-video__content__actions__text">{{ item.shareCount }}</text>
 							</view>
 							<view class="u-short-video__content__actions__item" @click="handleCollect(item, index)">
-								<up-icon color="#eee" :name="item.isCollected ? 'bookmark-fill' : 'bookmark'" size="32px"></up-icon>
+								<u-icon color="#eee" :name="item.isCollected ? 'bookmark-fill' : 'bookmark'" size="32px"></u-icon>
 								<text class="u-short-video__content__actions__text">{{ item.collectCount }}</text>
 							</view>
 						</slot>

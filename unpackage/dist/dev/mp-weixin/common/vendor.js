@@ -5244,6 +5244,10 @@ function findScopedSlotInvoker(vueId, instance) {
     parent = parent.parent;
   }
 }
+function setRef(ref2, id, opts = {}) {
+  const { $templateRefs } = getCurrentInstance();
+  $templateRefs.push({ i: id, r: ref2, k: opts.k, f: opts.f });
+}
 const o = (value, key) => vOn(value, key);
 const f = (source, renderItem) => vFor(source, renderItem);
 const r = (name, props, key) => renderSlot(name, props, key);
@@ -5252,6 +5256,7 @@ const e = (target, ...sources) => extend(target, ...sources);
 const n = (value) => normalizeClass(value);
 const t = (val) => toDisplayString(val);
 const p = (props) => renderProps(props);
+const sr = (ref2, id, opts) => setRef(ref2, id, opts);
 function createApp$1(rootComponent, rootProps = null) {
   rootComponent && (rootComponent.mpType = "app");
   return createVueApp(rootComponent, rootProps).use(plugin);
@@ -6178,9 +6183,9 @@ function populateParameters(fromRes, toRes) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "4.85",
-    uniCompilerVersion: "4.85",
-    uniRuntimeVersion: "4.85",
+    uniCompileVersion: "4.87",
+    uniCompilerVersion: "4.87",
+    uniRuntimeVersion: "4.87",
     uniPlatform: "mp-weixin",
     deviceBrand,
     deviceModel: model,
@@ -6329,9 +6334,9 @@ const getAppBaseInfo = {
       appLanguage: getAppLanguage(hostLanguage),
       isUniAppX: false,
       uniPlatform: "mp-weixin",
-      uniCompileVersion: "4.85",
-      uniCompilerVersion: "4.85",
-      uniRuntimeVersion: "4.85"
+      uniCompileVersion: "4.87",
+      uniCompilerVersion: "4.87",
+      uniRuntimeVersion: "4.87"
     };
     extend(toRes, parameters);
   }
@@ -7075,9 +7080,9 @@ function isConsoleWritable() {
   return isWritable;
 }
 function initRuntimeSocketService() {
-  const hosts = "192.168.74.39,127.0.0.1";
+  const hosts = "192.168.74.104,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_QTCjML";
+  const id = "mp-weixin_J6KrJ5";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8037,19 +8042,23 @@ const onLoad = /* @__PURE__ */ createLifeCycleHook(
   /* HookFlags.PAGE */
 );
 exports._export_sfc = _export_sfc;
+exports.computed = computed;
 exports.createSSRApp = createSSRApp;
 exports.e = e;
 exports.f = f;
 exports.index = index;
 exports.n = n;
+exports.nextTick$1 = nextTick$1;
 exports.o = o;
 exports.onLoad = onLoad;
 exports.onMounted = onMounted;
 exports.onShow = onShow;
 exports.p = p;
 exports.r = r;
+exports.reactive = reactive;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
+exports.sr = sr;
 exports.t = t;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map
