@@ -29,6 +29,12 @@
 			"style": {
 				"navigationBarTitleText": "原料列表"
 			}
+		},
+		{
+			"path": "pages/order/create/index",
+			"style": {
+				"navigationBarTitleText": "新建订单"
+			}
 		}
 	],
 	"globalStyle": {

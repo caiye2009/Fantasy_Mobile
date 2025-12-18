@@ -4,11 +4,11 @@
             @click="onShowByClickInput"
         >
             <slot name="trigger" :value="inputValue">
-				<up-input
+				<u-input
 					:readonly="!!showByClickInput"
 					v-model="inputValue"
 					v-bind="inputPropsInner"
-				></up-input>
+				></u-input>
 				<cover-view class="input-cover">
 				</cover-view>
 			</slot>
@@ -30,6 +30,8 @@
             :confirmColor="confirmColor"
             :toolbarRightSlot="toolbarRightSlot"
 			:pageInline="pageInline"
+			:maskClass="maskClass"
+			:maskStyle="maskStyle"
             @close="close"
             @cancel="cancel"
             @confirm="confirm"

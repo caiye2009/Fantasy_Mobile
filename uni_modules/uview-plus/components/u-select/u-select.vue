@@ -162,6 +162,14 @@ export default {
 				this.optionsWrapRight = `0px`;
 			}
 		});
+	  },
+	  // 阻止事件冒泡
+	  preventEvent(e) {
+	      e && typeof (e.stopPropagation) === 'function' && e.stopPropagation()
+	  },
+	  // 空操作
+	  noop(e) {
+	      this.preventEvent(e)
 	  }
     }
 }

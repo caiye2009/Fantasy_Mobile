@@ -2,14 +2,14 @@
 	<view class="u-action-sheet-data">
 		<view class="u-action-sheet-data__trigger">
 			<slot name="trigger"></slot>
-			<up-input
+			<u-input
 				v-if="!$slots['trigger']"
 				:modelValue="current"
 				disabled
 				disabledColor="#ffffff"
 				:placeholder="title"
 				border="none"
-			></up-input>
+			></u-input>
 			<view @click="show = true"
 				class="u-action-sheet-data__trigger__cover"></view>
 		</view>

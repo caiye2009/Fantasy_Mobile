@@ -371,12 +371,14 @@ const _sfc_main = {
         C: common_vendor.p({
           type: "primary",
           icon: "search",
-          ["custom-style"]: "display: flex; align-items: center; justify-content: center; height: 36px;"
+          ["custom-style"]: "display: flex; align-items: center; justify-content: center; height: 36px;",
+          text: "查询"
         }),
         D: common_vendor.o(resetFilters),
         E: common_vendor.p({
           icon: "reload",
-          ["custom-style"]: "display: flex; align-items: center; justify-content: center; height: 36px;"
+          ["custom-style"]: "display: flex; align-items: center; justify-content: center; height: 36px;",
+          text: "重置"
         })
       } : {}, {
         F: common_vendor.o(handleCategoryConfirm),
