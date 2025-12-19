@@ -25,14 +25,29 @@
         
         <u-form :model="formData.step1" ref="step1Form" class="form">
           <u-form-item label="客户名称" prop="customerId" labelWidth="120" required>
-            <u-input 
-              v-model="searchCustomer" 
-              placeholder="输入客户名称搜索" 
-              @input="searchCustomers"
-              border="none"
-              clearable
-            ></u-input>
-            <u-button @click="showCustomerPicker = true" size="mini" type="primary">选择</u-button>
+            <view class="search-select">
+              <u-input 
+                v-model="searchCustomer" 
+                placeholder="输入客户名称搜索" 
+                @input="handleCustomerSearch"
+                @focus="showCustomerDropdown = true"
+                border="none"
+                clearable
+              ></u-input>
+              <view v-if="showCustomerDropdown && filteredCustomers.length" class="dropdown-list">
+                <view 
+                  v-for="item in filteredCustomers" 
+                  :key="item.id"
+                  class="dropdown-item"
+                  @click="selectCustomerFromList(item)"
+                >
+                  {{ item.name }}
+                </view>
+              </view>
+              <view v-if="showCustomerDropdown && searchCustomer && !filteredCustomers.length" class="no-results">
+                未找到匹配的客户
+              </view>
+            </view>
             <text v-if="formData.step1.customerName" class="selected-value">
               已选: {{ formData.step1.customerName }}
             </text>
@@ -46,15 +61,17 @@
           </u-form-item>
           
           <u-form-item label="紧急程度" prop="urgency" labelWidth="120" required>
-            <u-radio-group v-model="formData.step1.urgency" placement="row">
-				 <u-radio
-				      :customStyle="{marginBottom: '8px'}"
-				      v-for="(item, index) in urgencyMap"
-				      :key="index"
-				      :label="item.name"
-				      :name="item.name"
-				    ></u-radio>
-            </u-radio-group>
+            <view class="urgency-group">
+              <view 
+                v-for="item in urgencyOptions" 
+                :key="item.value"
+                class="urgency-option"
+                :class="{ active: formData.step1.urgency === item.value }"
+                @click="formData.step1.urgency = item.value"
+              >
+                <text>{{ item.label }}</text>
+              </view>
+            </view>
           </u-form-item>
         </u-form>
       </view>
@@ -65,14 +82,29 @@
         
         <u-form :model="formData.step2" ref="step2Form" class="form">
           <u-form-item label="布料类型" prop="fabricType" labelWidth="120" required>
-            <u-input 
-              v-model="searchFabric" 
-              placeholder="输入布料名称搜索" 
-              @input="searchFabrics"
-              border="none"
-              clearable
-            ></u-input>
-            <u-button @click="showFabricPicker = true" size="mini" type="primary">选择</u-button>
+            <view class="search-select">
+              <u-input 
+                v-model="searchFabric" 
+                placeholder="输入布料名称搜索" 
+                @input="handleFabricSearch"
+                @focus="showFabricDropdown = true"
+                border="none"
+                clearable
+              ></u-input>
+              <view v-if="showFabricDropdown && filteredFabrics.length" class="dropdown-list">
+                <view 
+                  v-for="item in filteredFabrics" 
+                  :key="item.code"
+                  class="dropdown-item"
+                  @click="selectFabricFromList(item)"
+                >
+                  {{ item.name }}
+                </view>
+              </view>
+              <view v-if="showFabricDropdown && searchFabric && !filteredFabrics.length" class="no-results">
+                未找到匹配的布料
+              </view>
+            </view>
             <text v-if="formData.step2.fabricName" class="selected-value">
               已选: {{ formData.step2.fabricName }}
             </text>
@@ -178,24 +210,6 @@
         :loading="submitting"
       >提交订单</u-button>
     </view>
-    
-    <!-- 客户选择器 -->
-    <u-picker 
-      :show="showCustomerPicker" 
-      :columns="[filteredCustomers]" 
-      keyName="name"
-      @cancel="showCustomerPicker = false"
-      @confirm="selectCustomer"
-    ></u-picker>
-    
-    <!-- 布料选择器 -->
-    <u-picker 
-      :show="showFabricPicker" 
-      :columns="[filteredFabrics]" 
-      keyName="name"
-      @cancel="showFabricPicker = false"
-      @confirm="selectFabric"
-    ></u-picker>
   </view>
 </template>
 
@@ -211,7 +225,7 @@ const formData = reactive({
     customerId: '',
     customerName: '',
     orderType: 'new',
-    urgency: null
+    urgency: 1  // 默认选择普通
   },
   step2: {
     fabricType: '',
@@ -226,7 +240,7 @@ const formData = reactive({
   }
 })
 
-// 搜索相关
+// 搜索相关 - 客户
 const searchCustomer = ref('')
 const customers = ref([
   { id: 'C001', name: '广州纺织有限公司' },
@@ -237,9 +251,10 @@ const customers = ref([
   { id: 'C006', name: '惠州织造厂' },
   { id: 'C007', name: '珠海纺织贸易' }
 ])
-const filteredCustomers = ref([])
-const showCustomerPicker = ref(false)
+const filteredCustomers = ref([...customers.value])
+const showCustomerDropdown = ref(false)
 
+// 搜索相关 - 布料
 const searchFabric = ref('')
 const fabrics = ref([
   { code: 'FB001', name: '纯棉面料' },
@@ -250,8 +265,8 @@ const fabrics = ref([
   { code: 'FB006', name: '羊毛面料' },
   { code: 'FB007', name: '牛仔布' }
 ])
-const filteredFabrics = ref([])
-const showFabricPicker = ref(false)
+const filteredFabrics = ref([...fabrics.value])
+const showFabricDropdown = ref(false)
 
 // 选项数据
 const colors = ['白色', '黑色', '红色', '蓝色', '灰色', '绿色', '黄色', '紫色']
@@ -264,20 +279,19 @@ const processes = [
   { label: '柔软处理', value: 'soft' }
 ]
 
-const urgencyMap = reactive([
-  {
-    name: '普通',
-    disabled: false,
-  },
-  {
-    name: '加急',
-    disabled: false,
-  },
-  {
-    name: '特急',
-    disabled: false,
-  }
-]);
+// 紧急程度选项
+const urgencyOptions = ref([
+  { label: '普通', value: 1 },
+  { label: '加急', value: 2 },
+  { label: '特急', value: 3 }
+])
+
+// 紧急程度映射
+const urgencyMap = {
+  1: '普通',
+  2: '加急',
+  3: '特急'
+}
 
 // 最小日期（今天）
 const minDate = Date.now()
@@ -285,14 +299,8 @@ const minDate = Date.now()
 // 提交状态
 const submitting = ref(false)
 
-// 初始化数据
-onMounted(() => {
-  filteredCustomers.value = [...customers.value]
-  filteredFabrics.value = [...fabrics.value]
-})
-
-// 搜索客户
-const searchCustomers = () => {
+// 搜索客户 - 实时筛选
+const handleCustomerSearch = () => {
   if (searchCustomer.value) {
     filteredCustomers.value = customers.value.filter(c => 
       c.name.includes(searchCustomer.value)
@@ -300,18 +308,19 @@ const searchCustomers = () => {
   } else {
     filteredCustomers.value = [...customers.value]
   }
+  showCustomerDropdown.value = true
 }
 
-// 选择客户
-const selectCustomer = (e) => {
-  const selected = e.value[0]
-  formData.step1.customerId = selected.id
-  formData.step1.customerName = selected.name
-  showCustomerPicker.value = false
+// 从列表中选择客户
+const selectCustomerFromList = (item) => {
+  formData.step1.customerId = item.id
+  formData.step1.customerName = item.name
+  searchCustomer.value = item.name
+  showCustomerDropdown.value = false
 }
 
-// 搜索布料
-const searchFabrics = () => {
+// 搜索布料 - 实时筛选
+const handleFabricSearch = () => {
   if (searchFabric.value) {
     filteredFabrics.value = fabrics.value.filter(f => 
       f.name.includes(searchFabric.value)
@@ -319,14 +328,15 @@ const searchFabrics = () => {
   } else {
     filteredFabrics.value = [...fabrics.value]
   }
+  showFabricDropdown.value = true
 }
 
-// 选择布料
-const selectFabric = (e) => {
-  const selected = e.value[0]
-  formData.step2.fabricType = selected.code
-  formData.step2.fabricName = selected.name
-  showFabricPicker.value = false
+// 从列表中选择布料
+const selectFabricFromList = (item) => {
+  formData.step2.fabricType = item.code
+  formData.step2.fabricName = item.name
+  searchFabric.value = item.name
+  showFabricDropdown.value = false
 }
 
 // 日期处理
@@ -346,7 +356,7 @@ const isStepValid = (step) => {
     case 2:
       return formData.step3.quantity > 0 && 
              formData.step3.price > 0 &&
-             formData.step3.deliveryDate > minDate
+             formData.step3.deliveryDate > Date.now()
     default:
       return true
   }
@@ -357,8 +367,23 @@ const nextStep = () => {
   if (currentStep.value < 3 && isStepValid(currentStep.value)) {
     currentStep.value++
   } else {
+    let message = '请完成当前步骤必填项'
+    if (currentStep.value === 0) {
+      if (!formData.step1.customerId) {
+        message = '请选择客户'
+      } else if (!(formData.step1.urgency >= 1 && formData.step1.urgency <= 3)) {
+        message = '请选择紧急程度'
+      }
+    } else if (currentStep.value === 1 && !formData.step2.fabricType) {
+      message = '请选择布料类型'
+    } else if (currentStep.value === 2) {
+      if (formData.step3.quantity <= 0) message = '数量必须大于0'
+      else if (formData.step3.price <= 0) message = '价格必须大于0'
+      else if (formData.step3.deliveryDate <= Date.now()) message = '交货日期必须是未来日期'
+    }
+    
     uni.showToast({
-      title: '请完成当前步骤必填项',
+      title: message,
       icon: 'none'
     })
   }
@@ -408,6 +433,20 @@ const submitOrder = () => {
     }, 1500)
   }, 1500)
 }
+
+// 点击页面其他区域关闭下拉框
+const closeDropdowns = (e) => {
+  if (!e.target.closest('.search-select')) {
+    showCustomerDropdown.value = false
+    showFabricDropdown.value = false
+  }
+}
+
+// 初始化
+onMounted(() => {
+  // 添加全局点击事件监听器
+  document.addEventListener('click', closeDropdowns)
+})
 </script>
 
 <style lang="scss">
@@ -422,6 +461,7 @@ page {
   flex-direction: column;
   height: 100vh;
   background-color: #f5f7fa;
+  position: relative;
 }
 
 .steps {
@@ -471,6 +511,7 @@ page {
   .u-form-item {
     padding: 20rpx 0;
     border-bottom: 1rpx solid #f1f1f1;
+    position: relative;
   }
   
   .selected-value {
@@ -504,6 +545,85 @@ page {
   
   .u-checkbox, .u-radio {
     margin-right: 0 !important;
+  }
+  
+  /* 紧急程度样式 */
+  .urgency-group {
+    display: flex;
+    gap: 20rpx;
+    margin-top: 10rpx;
+  }
+  
+  .urgency-option {
+    flex: 1;
+    padding: 20rpx;
+    border: 1rpx solid #dcdfe6;
+    border-radius: 8rpx;
+    text-align: center;
+    font-size: 28rpx;
+    color: #606266;
+    background-color: #f5f7fa;
+    transition: all 0.3s;
+    
+    &.active {
+      border-color: #3c9cff;
+      background-color: #ecf5ff;
+      color: #3c9cff;
+      font-weight: 500;
+    }
+  }
+  
+  /* 搜索选择样式 */
+  .search-select {
+    position: relative;
+    width: 100%;
+    
+    .dropdown-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 300rpx;
+      overflow-y: auto;
+      background: white;
+      border: 1rpx solid #eee;
+      border-radius: 8rpx;
+      box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      margin-top: 10rpx;
+      
+      .dropdown-item {
+        padding: 20rpx;
+        font-size: 28rpx;
+        border-bottom: 1rpx solid #f5f5f5;
+        transition: background 0.2s;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        &:hover {
+          background-color: #f5f7fa;
+        }
+      }
+    }
+    
+    .no-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 20rpx;
+      background: white;
+      border: 1rpx solid #eee;
+      border-radius: 8rpx;
+      box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      margin-top: 10rpx;
+      text-align: center;
+      color: #999;
+      font-size: 28rpx;
+    }
   }
 }
 

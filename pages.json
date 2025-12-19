@@ -35,6 +35,12 @@
 			"style": {
 				"navigationBarTitleText": "新建订单"
 			}
+		},
+		{
+			"path": "pages/order/quotation/quotation",
+			"style": {
+				"navigationBarTitleText": "报价单"
+			}
 		}
 	],
 	"globalStyle": {
