@@ -7,6 +7,8 @@ if (!Math) {
   "./pages/order/list/index.js";
   "./pages/order/detail/index.js";
   "./pages/material/list/index.js";
+  "./pages/order/create/index.js";
+  "./pages/order/quotation/quotation.js";
 }
 const _sfc_main = {
   onLaunch: function() {

@@ -4,7 +4,9 @@
     "pages/order/index/index",
     "pages/order/list/index",
     "pages/order/detail/index",
-    "pages/material/list/index"
+    "pages/material/list/index",
+    "pages/order/create/index",
+    "pages/order/quotation/quotation"
   ],
   "window": {
     "navigationBarTextStyle": "black",

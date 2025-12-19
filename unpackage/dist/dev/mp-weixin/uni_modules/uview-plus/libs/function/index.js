@@ -22,6 +22,9 @@ function sleep(value = 30) {
     }, value);
   });
 }
+function os() {
+  return common_vendor.index.getDeviceInfo().platform.toLowerCase();
+}
 function getWindowInfo() {
   let ret = {};
   ret = common_vendor.index.getWindowInfo();
@@ -37,8 +40,8 @@ function random(min, max) {
 function $parent(name = void 0) {
   let parent = this.$parent;
   while (parent) {
-    name = name.replace(/up-([a-zA-Z0-9-_]+)/g, "u-$1");
-    if (parent.$options && parent.$options.name !== name) {
+    let name2 = name.replace(/up-([a-zA-Z0-9-_]+)/g, "u-$1");
+    if (parent.$options && parent.$options.name !== name && parent.$options.name !== name2) {
       parent = parent.$parent;
     } else {
       return parent;
@@ -306,6 +309,52 @@ function formValidate(instance, event) {
     }, event);
   }
 }
+function getProperty(obj, key) {
+  if (typeof obj !== "object" || null == obj) {
+    return "";
+  }
+  if (typeof key !== "string" || key === "") {
+    return "";
+  }
+  if (key.indexOf(".") !== -1) {
+    const keys = key.split(".");
+    let firstObj = obj[keys[0]] || {};
+    for (let i = 1; i < keys.length; i++) {
+      if (firstObj) {
+        firstObj = firstObj[keys[i]];
+      }
+    }
+    return firstObj;
+  }
+  return obj[key];
+}
+function setProperty(obj, key, value) {
+  if (typeof obj !== "object" || null == obj) {
+    return;
+  }
+  const inFn = function(_obj, keys, v) {
+    if (keys.length === 1) {
+      _obj[keys[0]] = v;
+      return;
+    }
+    while (keys.length > 1) {
+      const k = keys[0];
+      if (!_obj[k] || typeof _obj[k] !== "object") {
+        _obj[k] = {};
+      }
+      keys.shift();
+      inFn(_obj[k], keys, v);
+    }
+  };
+  if (typeof key !== "string" || key === "")
+    ;
+  else if (key.indexOf(".") !== -1) {
+    const keys = key.split(".");
+    inFn(obj, keys, value);
+  } else {
+    obj[key] = value;
+  }
+}
 function page() {
   const pages2 = getCurrentPages();
   return `/${pages2[pages2.length - 1].route || ""}`;
@@ -383,14 +432,17 @@ exports.deepMerge = deepMerge;
 exports.error = error;
 exports.formValidate = formValidate;
 exports.genLightColor = genLightColor;
+exports.getProperty = getProperty;
 exports.getPx = getPx;
 exports.getWindowInfo = getWindowInfo;
+exports.os = os;
 exports.padZero = padZero;
 exports.page = page;
 exports.priceFormat = priceFormat;
 exports.queryParams = queryParams;
 exports.random = random;
 exports.range = range;
+exports.setProperty = setProperty;
 exports.shallowMerge = shallowMerge;
 exports.sleep = sleep;
 exports.timeFormat = timeFormat;

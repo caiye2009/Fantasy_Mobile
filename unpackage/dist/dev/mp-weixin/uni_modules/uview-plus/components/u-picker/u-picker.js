@@ -262,17 +262,18 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _component_up_input = common_vendor.resolveComponent("up-input");
+  const _easycom_u_input2 = common_vendor.resolveComponent("u-input");
   const _easycom_u_toolbar2 = common_vendor.resolveComponent("u-toolbar");
   const _easycom_u_loading_icon2 = common_vendor.resolveComponent("u-loading-icon");
   const _easycom_u_popup2 = common_vendor.resolveComponent("u-popup");
-  (_component_up_input + _easycom_u_toolbar2 + _easycom_u_loading_icon2 + _easycom_u_popup2)();
+  (_easycom_u_input2 + _easycom_u_toolbar2 + _easycom_u_loading_icon2 + _easycom_u_popup2)();
 }
+const _easycom_u_input = () => "../u-input/u-input.js";
 const _easycom_u_toolbar = () => "../u-toolbar/u-toolbar.js";
 const _easycom_u_loading_icon = () => "../u-loading-icon/u-loading-icon.js";
 const _easycom_u_popup = () => "../u-popup/u-popup.js";
 if (!Math) {
-  (_easycom_u_toolbar + _easycom_u_loading_icon + _easycom_u_popup)();
+  (_easycom_u_input + _easycom_u_toolbar + _easycom_u_loading_icon + _easycom_u_popup)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -326,19 +327,21 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       });
     }),
-    m: `height: ${$options.addUnit(_ctx.itemHeight, "px")}`,
-    n: $data.innerIndex,
-    o: _ctx.immediateChange,
-    p: `${$options.addUnit(_ctx.visibleItemCount * _ctx.itemHeight, "px")}`,
-    q: common_vendor.o((...args) => $options.changeHandler && $options.changeHandler(...args)),
-    r: _ctx.loading
+    m: _ctx.maskClass,
+    n: _ctx.maskStyle,
+    o: `height: ${$options.addUnit(_ctx.itemHeight, "px")}`,
+    p: $data.innerIndex,
+    q: _ctx.immediateChange,
+    r: `${$options.addUnit(_ctx.visibleItemCount * _ctx.itemHeight, "px")}`,
+    s: common_vendor.o((...args) => $options.changeHandler && $options.changeHandler(...args)),
+    t: _ctx.loading
   }, _ctx.loading ? {
-    s: common_vendor.p({
+    v: common_vendor.p({
       mode: "circle"
     })
   } : {}, {
-    t: common_vendor.o($options.closeHandler),
-    v: common_vendor.p({
+    w: common_vendor.o($options.closeHandler),
+    x: common_vendor.p({
       show: _ctx.show || _ctx.hasInput && $data.showByClickInput,
       mode: _ctx.popupMode,
       zIndex: _ctx.zIndex,

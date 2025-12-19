@@ -1,14 +1,14 @@
 <template>
   <view class="container">
     <!-- 顶部导航 -->
-    <u-navbar 
-      title="新建布匹订单" 
-      :autoBack="true" 
+    <u-navbar
+      title="新建布匹订单"
+      :autoBack="true"
       bgColor="#3498db"
       titleStyle="color: white; font-size: 16px;"
       leftIconColor="white"
     ></u-navbar>
-    
+
     <!-- 步骤指示器 -->
     <u-steps :current="currentStep" activeColor="#3c9cff" class="steps">
       <u-steps-item title="基本信息"></u-steps-item>
@@ -22,21 +22,21 @@
       <!-- 步骤1: 基本信息 -->
       <view v-if="currentStep === 0" class="step-panel">
         <view class="step-title">基本信息</view>
-        
+
         <u-form :model="formData.step1" ref="step1Form" class="form">
           <u-form-item label="客户名称" prop="customerId" labelWidth="120" required>
             <view class="search-select">
-              <u-input 
-                v-model="searchCustomer" 
-                placeholder="输入客户名称搜索" 
+              <u-input
+                v-model="searchCustomer"
+                placeholder="输入客户名称搜索"
                 @input="handleCustomerSearch"
                 @focus="showCustomerDropdown = true"
                 border="none"
                 clearable
               ></u-input>
               <view v-if="showCustomerDropdown && filteredCustomers.length" class="dropdown-list">
-                <view 
-                  v-for="item in filteredCustomers" 
+                <view
+                  v-for="item in filteredCustomers"
                   :key="item.id"
                   class="dropdown-item"
                   @click="selectCustomerFromList(item)"
@@ -52,18 +52,18 @@
               已选: {{ formData.step1.customerName }}
             </text>
           </u-form-item>
-          
+
           <u-form-item label="订单类型" prop="orderType" labelWidth="120" required>
             <u-radio-group v-model="formData.step1.orderType" placement="row">
               <u-radio label="新订单" name="new"></u-radio>
               <u-radio label="返单" name="repeat"></u-radio>
             </u-radio-group>
           </u-form-item>
-          
+
           <u-form-item label="紧急程度" prop="urgency" labelWidth="120" required>
             <view class="urgency-group">
-              <view 
-                v-for="item in urgencyOptions" 
+              <view
+                v-for="item in urgencyOptions"
                 :key="item.value"
                 class="urgency-option"
                 :class="{ active: formData.step1.urgency === item.value }"
@@ -79,21 +79,21 @@
       <!-- 步骤2: 布匹详情 -->
       <view v-if="currentStep === 1" class="step-panel">
         <view class="step-title">布匹详情</view>
-        
+
         <u-form :model="formData.step2" ref="step2Form" class="form">
           <u-form-item label="布料类型" prop="fabricType" labelWidth="120" required>
             <view class="search-select">
-              <u-input 
-                v-model="searchFabric" 
-                placeholder="输入布料名称搜索" 
+              <u-input
+                v-model="searchFabric"
+                placeholder="输入布料名称搜索"
                 @input="handleFabricSearch"
                 @focus="showFabricDropdown = true"
                 border="none"
                 clearable
               ></u-input>
               <view v-if="showFabricDropdown && filteredFabrics.length" class="dropdown-list">
-                <view 
-                  v-for="item in filteredFabrics" 
+                <view
+                  v-for="item in filteredFabrics"
                   :key="item.code"
                   class="dropdown-item"
                   @click="selectFabricFromList(item)"
@@ -109,13 +109,13 @@
               已选: {{ formData.step2.fabricName }}
             </text>
           </u-form-item>
-          
+
           <u-form-item label="颜色" prop="color" labelWidth="120" required>
             <u-radio-group v-model="formData.step2.color">
               <u-radio v-for="c in colors" :key="c" :label="c" :name="c"></u-radio>
             </u-radio-group>
           </u-form-item>
-          
+
           <u-form-item label="工艺要求" prop="process" labelWidth="120">
             <u-checkbox-group v-model="formData.step2.process">
               <u-checkbox v-for="p in processes" :key="p.value" :name="p.value">{{ p.label }}</u-checkbox>
@@ -127,23 +127,23 @@
       <!-- 步骤3: 数量价格 -->
       <view v-if="currentStep === 2" class="step-panel">
         <view class="step-title">数量与价格</view>
-        
+
         <u-form :model="formData.step3" ref="step3Form" class="form">
           <u-form-item label="数量(米)" prop="quantity" labelWidth="120" required>
             <u-input v-model="formData.step3.quantity" type="number" placeholder="请输入数量" border="none"></u-input>
           </u-form-item>
-          
+
           <u-form-item label="单价(元)" prop="price" labelWidth="120" required>
             <u-input v-model="formData.step3.price" type="digit" placeholder="请输入单价" border="none"></u-input>
           </u-form-item>
-          
+
           <u-form-item label="总价" labelWidth="120">
             <text class="total-price">¥{{ calculateTotalPrice() }}</text>
           </u-form-item>
-          
+
           <u-form-item label="交货日期" prop="deliveryDate" labelWidth="120" required>
-            <u-datetime-picker 
-              v-model="formData.step3.deliveryDate" 
+            <u-datetime-picker
+              v-model="formData.step3.deliveryDate"
               mode="date"
               :min-date="minDate"
               @confirm="handleDateConfirm"
@@ -158,21 +158,21 @@
       <!-- 步骤4: 确认信息 -->
       <view v-if="currentStep === 3" class="step-panel">
         <view class="step-title">确认订单信息</view>
-        
+
         <u-card :title="formData.step1.customerName || '未选择客户'" class="summary-card">
           <view class="summary-section">
             <text class="section-title">基本信息</text>
             <text>订单类型: {{ formData.step1.orderType === 'new' ? '新订单' : '返单' }}</text>
             <text>紧急程度: {{ urgencyMap[formData.step1.urgency] }}</text>
           </view>
-          
+
           <view class="summary-section">
             <text class="section-title">布匹详情</text>
             <text>布料类型: {{ formData.step2.fabricName || '未选择' }}</text>
             <text>颜色: {{ formData.step2.color }}</text>
             <text>工艺: {{ getSelectedProcesses() }}</text>
           </view>
-          
+
           <view class="summary-section">
             <text class="section-title">数量价格</text>
             <text>数量: {{ formData.step3.quantity || 0 }}米</text>
@@ -186,25 +186,25 @@
 
     <!-- 底部操作栏 -->
     <view class="action-bar">
-      <u-button 
-        v-if="currentStep > 0" 
-        @click="prevStep" 
+      <u-button
+        v-if="currentStep > 0"
+        @click="prevStep"
         type="default"
         size="medium"
         plain
       >上一步</u-button>
-      
-      <u-button 
-        v-if="currentStep < 3" 
-        @click="nextStep" 
+
+      <u-button
+        v-if="currentStep < 3"
+        @click="nextStep"
         type="primary"
         size="medium"
         :disabled="!isStepValid(currentStep)"
       >下一步</u-button>
-      
-      <u-button 
-        v-else 
-        @click="submitOrder" 
+
+      <u-button
+        v-else
+        @click="submitOrder"
         type="success"
         size="medium"
         :loading="submitting"
@@ -302,7 +302,7 @@ const submitting = ref(false)
 // 搜索客户 - 实时筛选
 const handleCustomerSearch = () => {
   if (searchCustomer.value) {
-    filteredCustomers.value = customers.value.filter(c => 
+    filteredCustomers.value = customers.value.filter(c =>
       c.name.includes(searchCustomer.value)
     )
   } else {
@@ -322,7 +322,7 @@ const selectCustomerFromList = (item) => {
 // 搜索布料 - 实时筛选
 const handleFabricSearch = () => {
   if (searchFabric.value) {
-    filteredFabrics.value = fabrics.value.filter(f => 
+    filteredFabrics.value = fabrics.value.filter(f =>
       f.name.includes(searchFabric.value)
     )
   } else {
@@ -348,13 +348,13 @@ const handleDateConfirm = (e) => {
 const isStepValid = (step) => {
   switch(step) {
     case 0:
-      return !!formData.step1.customerId && 
-             formData.step1.urgency >= 1 && 
+      return !!formData.step1.customerId &&
+             formData.step1.urgency >= 1 &&
              formData.step1.urgency <= 3
     case 1:
       return !!formData.step2.fabricType
     case 2:
-      return formData.step3.quantity > 0 && 
+      return formData.step3.quantity > 0 &&
              formData.step3.price > 0 &&
              formData.step3.deliveryDate > Date.now()
     default:
@@ -381,7 +381,7 @@ const nextStep = () => {
       else if (formData.step3.price <= 0) message = '价格必须大于0'
       else if (formData.step3.deliveryDate <= Date.now()) message = '交货日期必须是未来日期'
     }
-    
+
     uni.showToast({
       title: message,
       icon: 'none'
@@ -418,7 +418,7 @@ const getSelectedProcesses = () => {
 // 提交订单
 const submitOrder = () => {
   submitting.value = true
-  
+
   // 模拟API请求
   setTimeout(() => {
     uni.showToast({
@@ -426,7 +426,7 @@ const submitOrder = () => {
       icon: 'success'
     })
     submitting.value = false
-    
+
     // 重置表单或跳转页面
     setTimeout(() => {
       uni.navigateBack()
@@ -484,7 +484,7 @@ page {
   padding: 30rpx;
   margin-bottom: 20rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.03);
-  
+
   .step-title {
     font-size: 34rpx;
     font-weight: 500;
@@ -492,7 +492,7 @@ page {
     color: #2c3e50;
     position: relative;
     padding-left: 20rpx;
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -513,20 +513,20 @@ page {
     border-bottom: 1rpx solid #f1f1f1;
     position: relative;
   }
-  
+
   .selected-value {
     display: block;
     margin-top: 15rpx;
     color: #3498db;
     font-size: 26rpx;
   }
-  
+
   .total-price {
     font-size: 36rpx;
     font-weight: bold;
     color: #e74c3c;
   }
-  
+
   .date-display {
     padding: 20rpx;
     background-color: #f8f8f8;
@@ -536,24 +536,24 @@ page {
     font-size: 28rpx;
     color: #666;
   }
-  
+
   .u-radio-group, .u-checkbox-group {
     display: flex;
     flex-wrap: wrap;
     gap: 30rpx;
   }
-  
+
   .u-checkbox, .u-radio {
     margin-right: 0 !important;
   }
-  
+
   /* 紧急程度样式 */
   .urgency-group {
     display: flex;
     gap: 20rpx;
     margin-top: 10rpx;
   }
-  
+
   .urgency-option {
     flex: 1;
     padding: 20rpx;
@@ -564,7 +564,7 @@ page {
     color: #606266;
     background-color: #f5f7fa;
     transition: all 0.3s;
-    
+
     &.active {
       border-color: #3c9cff;
       background-color: #ecf5ff;
@@ -572,12 +572,12 @@ page {
       font-weight: 500;
     }
   }
-  
+
   /* 搜索选择样式 */
   .search-select {
     position: relative;
     width: 100%;
-    
+
     .dropdown-list {
       position: absolute;
       top: 100%;
@@ -591,23 +591,23 @@ page {
       box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
       z-index: 100;
       margin-top: 10rpx;
-      
+
       .dropdown-item {
         padding: 20rpx;
         font-size: 28rpx;
         border-bottom: 1rpx solid #f5f5f5;
         transition: background 0.2s;
-        
+
         &:last-child {
           border-bottom: none;
         }
-        
+
         &:hover {
           background-color: #f5f7fa;
         }
       }
     }
-    
+
     .no-results {
       position: absolute;
       top: 100%;
@@ -635,7 +635,7 @@ page {
   border-top: 1rpx solid #eee;
   position: sticky;
   bottom: 0;
-  
+
   button {
     flex: 1;
     margin: 0 15rpx;
@@ -647,12 +647,12 @@ page {
     background-color: #f8fafc;
     font-weight: bold;
   }
-  
+
   .summary-section {
     margin-bottom: 30rpx;
     padding-bottom: 20rpx;
     border-bottom: 1rpx dashed #eee;
-    
+
     .section-title {
       font-weight: bold;
       display: block;
@@ -660,7 +660,7 @@ page {
       font-size: 30rpx;
       color: #3498db;
     }
-    
+
     text {
       display: block;
       line-height: 1.8;

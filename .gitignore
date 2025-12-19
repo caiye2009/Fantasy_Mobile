@@ -1,0 +1,138 @@
+# ==============================================
+# UniApp 核心忽略
+# ==============================================
+# 编译输出目录（所有平台产物）
+unpackage/
+dist/                  # 部分构建模式下的输出目录（如 vite 构建）
+
+# HBuilderX 临时文件与配置
+.hbuilderx/             # HBuilderX 编辑器缓存、配置
+unpackage/resources/    # 应用资源包（自动生成）
+unpackage/dist
+# 多端编译子目录（显式忽略各平台产物，避免冗余）
+/unpackage/dist/dev/mp-weixin/
+/unpackage/dist/dev/mp-alipay/
+/unpackage/dist/dev/mp-baidu/
+/unpackage/dist/dev/mp-toutiao/
+/unpackage/dist/dev/mp-qq/
+/unpackage/dist/dev/mp-kuaishou/
+/unpackage/dist/dev/h5/
+/unpackage/dist/dev/app-plus/
+/unpackage/dist/build/mp-weixin/
+/unpackage/dist/build/mp-alipay/
+/unpackage/dist/build/mp-baidu/
+/unpackage/dist/build/mp-toutiao/
+/unpackage/dist/build/mp-qq/
+/unpackage/dist/build/mp-kuaishou/
+/unpackage/dist/build/h5/
+/unpackage/dist/build/app-plus/
+
+# uni-app 插件模块（若使用 uni_modules 且无需提交插件源码）
+uni_modules/            # 第三方插件目录（按需保留：自己开发的插件可提交）
+
+
+# ==============================================
+# 通用依赖与构建目录（前端/Node.js 通用）
+# ==============================================
+node_modules/           # npm/yarn/pnpm 依赖
+npm-debug.log*          # npm 错误日志
+yarn-debug.log*          # yarn 错误日志
+yarn-error.log*          # yarn 错误日志
+pnpm-debug.log*          # pnpm 错误日志
+lerna-debug.log*         # lerna 日志
+
+# 构建工具缓存
+.cache/                 # Vite/Webpack 缓存
+.parcel-cache/          # Parcel 缓存
+.temp/                  # 临时文件
+tmp/                    # 临时目录
+
+
+# ==============================================
+# 环境变量与敏感配置（核心安全）
+# ==============================================
+.env                    # 基础环境变量
+.env.local              # 本地私有环境（含密钥，必忽略）
+.env.*.local            # 各环境本地配置（如 .env.development.local）
+.env.production.local
+.env.test.local
+.env.staging.local
+
+# 敏感文件（密钥、证书、Token 等）
+*.pem
+*.key
+*.crt
+*.pfx
+id_rsa
+id_rsa.pub
+config/private.js       # 项目私有配置（如 API 密钥）
+src/common/config/secret.js  # 自定义敏感配置路径
+
+
+# ==============================================
+# 编辑器与 IDE 配置（按需保留必要文件）
+# ==============================================
+# VS Code（保留关键配置，忽略缓存）
+.vscode/*
+!.vscode/settings.json  # 项目级编辑器设置（可选保留）
+!.vscode/extensions.json # 推荐插件列表（可选保留）
+!.vscode/tasks.json      # 构建任务（可选保留）
+
+# HBuilderX（已单独忽略 .hbuilderx/，此处补充）
+*.wxml
+*.wxss
+*.css.map
+*.js.map
+
+# 其他编辑器
+.idea/                  # IntelliJ IDEA/WebStorm
+*.iml
+*.iws
+*.ipr
+*.sublime-*             # Sublime Text
+*.swp                   # Vim 交换文件
+*.swo
+*~
+
+
+# ==============================================
+# 操作系统文件（跨平台通用）
+# ==============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+
+# ==============================================
+# 版本控制与工具文件（避免干扰）
+# ==============================================
+# Git
+.git/
+.gitattributes
+.gitmodules
+
+# 测试与日志
+coverage/               # 测试覆盖率报告
+logs/                   # 应用日志
+*.log                   # 各类日志文件
+
+
+# ==============================================
+# UniApp 可选忽略（根据项目调整）
+# ==============================================
+# 若使用云开发（如 uniCloud），忽略本地云函数目录（若云端同步）
+# cloudfunctions/        # 本地云函数（若通过 uniCloud 控制台管理）
+
+# 若字体/图片过大且通过 CDN 引入，忽略本地静态资源（谨慎使用）
+# src/static/large-assets/  # 大文件目录（如高清图片、字体）

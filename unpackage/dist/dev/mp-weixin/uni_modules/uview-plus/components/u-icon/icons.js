@@ -204,6 +204,7 @@ const icons = {
   "uicon-empty-list": "",
   "uicon-empty-page": "",
   "uicon-empty-order": "",
+  "uicon-empty-wifi": "",
   "uicon-man": "",
   "uicon-woman": "",
   "uicon-man-add": "",

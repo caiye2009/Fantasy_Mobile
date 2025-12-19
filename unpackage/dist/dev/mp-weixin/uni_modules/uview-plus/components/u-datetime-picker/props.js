@@ -160,6 +160,16 @@ const props = uni_modules_uviewPlus_libs_vue.defineMixin({
     pageInline: {
       type: Boolean,
       default: () => uni_modules_uviewPlus_libs_config_props.props.datetimePicker.pageInline
+    },
+    // 蒙层样式样式
+    maskClass: {
+      type: String,
+      defualt: ""
+    },
+    // 蒙层样式样式
+    maskStyle: {
+      type: String,
+      defualt: ""
     }
   }
 });

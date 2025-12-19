@@ -224,7 +224,7 @@ const _sfc_main = {
         if (this.filter) {
           values = this.filter(type, values);
           if (!values || values && values.length == 0) {
-            common_vendor.index.__f__("log", "at uni_modules/uview-plus/components/u-datetime-picker/u-datetime-picker.vue:366", "日期filter结果不能为空");
+            common_vendor.index.__f__("log", "at uni_modules/uview-plus/components/u-datetime-picker/u-datetime-picker.vue:368", "日期filter结果不能为空");
           }
         }
         return { type, values };
@@ -346,13 +346,14 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _component_up_input = common_vendor.resolveComponent("up-input");
+  const _easycom_u_input2 = common_vendor.resolveComponent("u-input");
   const _easycom_u_picker2 = common_vendor.resolveComponent("u-picker");
-  (_component_up_input + _easycom_u_picker2)();
+  (_easycom_u_input2 + _easycom_u_picker2)();
 }
+const _easycom_u_input = () => "../u-input/u-input.js";
 const _easycom_u_picker = () => "../u-picker/u-picker.js";
 if (!Math) {
-  _easycom_u_picker();
+  (_easycom_u_input + _easycom_u_picker)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -389,7 +390,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       cancelColor: _ctx.cancelColor,
       confirmColor: _ctx.confirmColor,
       toolbarRightSlot: _ctx.toolbarRightSlot,
-      pageInline: _ctx.pageInline
+      pageInline: _ctx.pageInline,
+      maskClass: _ctx.maskClass,
+      maskStyle: _ctx.maskStyle
     })
   });
 }

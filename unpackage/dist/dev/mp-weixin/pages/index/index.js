@@ -26,10 +26,6 @@ const _sfc_main = {
         return;
       try {
         loading.value = true;
-        const userInfoRes = await common_vendor.index.getUserProfile({ desc: "用于完善会员资料" });
-        const loginRes = await common_vendor.index.login();
-        common_vendor.index.setStorageSync("token", "mock_token_123456");
-        common_vendor.index.setStorageSync("userInfo", userInfoRes.userInfo);
         common_vendor.index.showToast({ title: "授权成功", icon: "success", duration: 1500 });
         setTimeout(() => common_vendor.index.navigateTo({ url: "/pages/order/index/index" }), 1500);
       } catch (error) {
