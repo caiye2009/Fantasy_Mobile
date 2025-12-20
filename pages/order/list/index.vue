@@ -1,25 +1,6 @@
 <!-- pages/order/list/index.vue -->
 <template>
   <view class="order-page">
-    <!-- 状态栏和导航栏 -->
-    <view class="status-bar" :style="{ height: statusBarHeight + 'px' }"></view>
-    <u-navbar
-      :title="pageTitle"
-      :autoBack="true"
-      leftIcon="arrow-left"
-      :placeholder="true"
-      :safeAreaInsetTop="true"
-    >
-      <template #right>
-        <view class="navbar-right">
-          <u-icon name="more-dot-fill" size="20" color="#333" @click="showMoreMenu"></u-icon>
-          <view class="detail-icon" @click="goToDetail">
-            <u-icon name="info-circle" size="20" color="#333"></u-icon>
-          </view>
-        </view>
-      </template>
-    </u-navbar>
-
     <!-- 搜索区域 -->
     <view class="search-box">
       <u-search
@@ -129,7 +110,6 @@ import "./index.scss"
 const statusBarHeight = ref(uni.getSystemInfoSync().statusBarHeight || 0)
 
 // 页面数据
-const pageTitle = ref('订单列表')
 const searchKeyword = ref('')
 const currentTab = ref(0)
 const refreshing = ref(false)

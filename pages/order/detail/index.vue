@@ -1,22 +1,5 @@
 <template>
   <view class="order-detail-page">
-    <!-- 自定义导航栏 -->
-    <u-navbar
-      title="订单详情"
-      :autoBack="true"
-      :placeholder="true"
-      bgColor="#ffffff"
-    >
-      <template #right>
-        <u-icon
-          name="more-dot-fill"
-          color="#333"
-          size="22"
-          @click="showActionSheet = true"
-        ></u-icon>
-      </template>
-    </u-navbar>
-
     <!-- 主要内容区域 -->
     <view class="content">
       <!-- 订单状态卡片 -->

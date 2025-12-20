@@ -1,21 +1,6 @@
 .order-page {
   min-height: 100vh;
   background-color: #ffffff;
-  
-  .status-bar {
-    width: 100%;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 20rpx;
-    
-    .detail-icon {
-      margin-left: 10rpx;
-    }
-  }
-  
   .search-box {
     padding: 20rpx 30rpx;
     background-color: #ffffff;
